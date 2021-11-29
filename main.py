@@ -1,6 +1,6 @@
 import sys
 
-from PyQt5.QtWidgets import QApplication, QVBoxLayout, QHBoxLayout, QGridLayout, QPushButton, QTextEdit, QFileDialog
+from PyQt5.QtWidgets import QApplication, QVBoxLayout, QGridLayout, QPushButton, QTextEdit, QFileDialog
 from PyQt5.QtWidgets import QLabel
 from PyQt5.QtWidgets import QWidget
 
@@ -8,9 +8,9 @@ from pysat.formula import CNF
 from pysat.solvers import Solver
 
 global filename
-global resultTextFrame
 
 def main():
+    global resultTextFrame
 
     style = """
     QWidget{
@@ -40,9 +40,9 @@ def main():
 	    cursor:pointer;
 	    color:#666666;
 	    font-family:Arial;
-	    font-size:12px;
+	    font-size:22px;
 	    font-weight:bold;
-	    padding:6px 24px;
+	    padding:24px 24px;
 	    text-decoration:none;
 	    text-shadow:0px 1px 0px #ffffff;
     }
@@ -51,15 +51,20 @@ def main():
     app = QApplication(sys.argv)
     app.setStyleSheet(style)
     window= QWidget()
+    window.setFixedSize(1280,720)
     window.setWindowTitle("Logical Formula Visualization")
 
     grid = QGridLayout()
 
     #display buttons
     selectFileButton = QPushButton("Wybierz Plik")
+    selectFileButton.setFixedSize(300,170)
     checkSatisfactionButton = QPushButton("Sprawdź spełnialność")
+    checkSatisfactionButton.setFixedSize(300,170)
     visualiseButton = QPushButton("Wizualizuj formułę")
+    visualiseButton.setFixedSize(300,170)
     closeButton = QPushButton('Zamknij Aplikację')
+    closeButton.setFixedSize(300,170)
 
     selectFileButton.clicked.connect(setFile)
     checkSatisfactionButton.clicked.connect(evaluateFormula)
@@ -68,6 +73,7 @@ def main():
     #Display result text frame
     resultTextFrame = QTextEdit("Wybierz plik DIMACS")
     resultTextFrame.setReadOnly(True)
+
 
     buttonsLayout = QVBoxLayout()
     buttonsLayout.addWidget(selectFileButton)
@@ -101,6 +107,17 @@ def evaluateFormula():
         #Zwraca wynik algorytmu MiniSat
         print(s.get_model())
 
+        if s.get_status():
+            resultTextFrame.setText("Formuła jest spełnialna!\n\n")
+        else:
+            resultTextFrame.setText("Formuła nie jest spełnialna!\n\n")
+
+        resultTextFrame.append("Wynik algorytmu minsat:")
+        result =s.get_model()
+
+        resultTextFrame.append(str(result))
+
+
     return s
 
 
@@ -108,10 +125,12 @@ def evaluateFormula():
 
 def setFile():
     global filename
+    global resultTextFrame
     dlg = QFileDialog()
     fname = dlg.getOpenFileName()
     filename = fname
     print(fname)
+    resultTextFrame.clear()
     return fname
 
 def closeApp():

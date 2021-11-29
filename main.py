@@ -12,7 +12,44 @@ global resultTextFrame
 
 def main():
 
+    style = """
+    QWidget{
+        background:  #DEDEDE;
+    }
+    QPushButton{
+        box-shadow:inset 0px 1px 0px 0px #ffffff;
+	    background-color:#ffffff;
+	    border-radius:6px;
+	    border:1px solid #dcdcdc;
+	    display:inline-block;
+	    cursor:pointer;
+	    color:#666666;
+	    font-family:Arial;
+	    font-size:15px;
+	    font-weight:bold;
+	    padding:6px 24px;
+	    text-decoration:none;
+	    text-shadow:0px 1px 0px #ffffff;
+    }
+    QTextEdit{
+        box-shadow:inset 0px 1px 0px 0px #ffffff;
+	    background-color:#ffffff;
+	    border-radius:6px;
+	    border:1px solid #dcdcdc;
+	    display:inline-block;
+	    cursor:pointer;
+	    color:#666666;
+	    font-family:Arial;
+	    font-size:12px;
+	    font-weight:bold;
+	    padding:6px 24px;
+	    text-decoration:none;
+	    text-shadow:0px 1px 0px #ffffff;
+    }
+    """
+
     app = QApplication(sys.argv)
+    app.setStyleSheet(style)
     window= QWidget()
     window.setWindowTitle("Logical Formula Visualization")
 
@@ -37,6 +74,7 @@ def main():
     buttonsLayout.addWidget(checkSatisfactionButton)
     buttonsLayout.addWidget(visualiseButton)
     buttonsLayout.addWidget(closeButton)
+
 
     grid.addLayout(buttonsLayout,0,0)
     grid.addWidget(resultTextFrame,0,1)

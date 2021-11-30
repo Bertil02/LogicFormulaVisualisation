@@ -1,5 +1,10 @@
 import sys
 
+from PyQt5.QtGui import QPixmap
+
+import data
+import graph1
+
 from PyQt5.QtWidgets import QApplication, QVBoxLayout, QGridLayout, QPushButton, QTextEdit, QFileDialog
 from PyQt5.QtWidgets import QLabel
 from PyQt5.QtWidgets import QWidget
@@ -11,6 +16,9 @@ global filename
 
 def main():
     global resultTextFrame
+    global picture
+
+
 
     style = """
     QWidget{
@@ -31,7 +39,7 @@ def main():
 	    text-decoration:none;
 	    text-shadow:0px 1px 0px #ffffff;
     }
-    QTextEdit{
+    QLabel{
         box-shadow:inset 0px 1px 0px 0px #ffffff;
 	    background-color:#ffffff;
 	    border-radius:6px;
@@ -51,7 +59,7 @@ def main():
     app = QApplication(sys.argv)
     app.setStyleSheet(style)
     window= QWidget()
-    window.setFixedSize(1280,720)
+    window.setGeometry(0,0,1280,720)
     window.setWindowTitle("Logical Formula Visualization")
 
     grid = QGridLayout()
@@ -68,11 +76,18 @@ def main():
 
     selectFileButton.clicked.connect(setFile)
     checkSatisfactionButton.clicked.connect(evaluateFormula)
+    visualiseButton.clicked.connect(visualizeCNFFile)
     closeButton.clicked.connect(closeApp)
+
 
     #Display result text frame
     resultTextFrame = QTextEdit("Wybierz plik DIMACS")
     resultTextFrame.setReadOnly(True)
+
+    #Picture widget
+    picture = QLabel()
+    picture.setFixedSize(950,695)
+    picture.setScaledContents(True)
 
 
     buttonsLayout = QVBoxLayout()
@@ -83,13 +98,20 @@ def main():
 
 
     grid.addLayout(buttonsLayout,0,0)
-    grid.addWidget(resultTextFrame,0,1)
+    grid.addWidget(picture,0,1)
 
 
 
     window.setLayout(grid)
     window.show()
     sys.exit(app.exec_())
+
+def visualizeCNFFile():
+    global filename
+    global picture
+    graph1.draw(filename[0])
+    picture.setPixmap(QPixmap("result.png"))
+
 
 def evaluateFormula():
     global filename
@@ -118,7 +140,7 @@ def evaluateFormula():
         resultTextFrame.append(str(result))
 
 
-    return s
+    return 0
 
 
 

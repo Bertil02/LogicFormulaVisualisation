@@ -22,7 +22,7 @@ def generate(file_name, lines=10, max_variables=10, max_in_line=3):
 
 
 def load(file_name):
-    with open(file_name+".cnf", "r") as f:
+    with open(file_name, "r") as f:
         # next(f) # pominięcie pierwszej linii
         array = []
         for line in f:  # odczytanie pozostałych linii

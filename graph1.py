@@ -41,5 +41,6 @@ def draw(file_name):
 
     g.vs["color"] = colors
     g.add_edges(edges)
-    plot(g, bbox=(800, 800), layout=g.layout("kk"), vertex_label=g.vs["name"], color=g.vs["color"])
-    plot(g, bbox=(800, 800), layout=g.layout("tree"), vertex_label=g.vs["name"], color=g.vs["color"])
+
+    plot(g,"result.png", bbox=(950, 690), layout=g.layout("tree"), vertex_label=g.vs["name"], color=g.vs["color"])
+    #plot(g, bbox=(800, 800), layout=g.layout("tree"), vertex_label=g.vs["name"], color=g.vs["color"])

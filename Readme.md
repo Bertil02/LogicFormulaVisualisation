@@ -1,13 +1,14 @@
 #Logic Formula Visualization
 
-##Needed libraries
+<h1>Needed libraries</h1>
 <ul>
-<li>PyQt5</li>
-<li>PySAT</li>
-<LI>igraph</LI>
+  <li>PyQt5</li>
+  <li>PySAT</li>
+  <LI>igraph</LI>
+  <li>pycairo</li>
 </ul>
 
-###Library instalation
+<h3>Library instalation</h3>
 Run following commands in command line processor
 
 <blockquote>
@@ -19,4 +20,5 @@ pip install pyqt5-tools
 </p>
 <p>pip install python-sat</p>
 <p>pip install igraph</p>
+<p>pip install pycairo</p>
 </blockquote>

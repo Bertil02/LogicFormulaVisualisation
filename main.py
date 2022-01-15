@@ -110,7 +110,7 @@ def visualizeCNFFile():
     global filename
     global picture
     graph1.draw(filename[0])
-    picture.setPixmap(QPixmap("result.png"))
+    picture.setPixmap(QPixmap("result/tree.png"))
 
 
 def evaluateFormula():

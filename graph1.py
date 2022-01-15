@@ -1,8 +1,8 @@
 from igraph import *
 import data
+import os
 
 
-# podstawowy graf, wyswietla wszystkie polaczenia
 def draw(file_name):
     lines = 0
     variables = []
@@ -42,5 +42,15 @@ def draw(file_name):
     g.vs["color"] = colors
     g.add_edges(edges)
 
-    plot(g,"result.png", bbox=(950, 690), layout=g.layout("tree"), vertex_label=g.vs["name"], color=g.vs["color"])
-    #plot(g, bbox=(800, 800), layout=g.layout("tree"), vertex_label=g.vs["name"], color=g.vs["color"])
+    try:
+        os.mkdir('result')
+    except WindowsError:
+        print('Directory already exists')
+
+    plot(g, 'result/random.png', bbox=(950, 690), layout=g.layout("random"), vertex_label=g.vs["name"],
+         color=g.vs["color"])  # random, tree, fr, kk
+    plot(g, 'result/tree.png', bbox=(950, 690), layout=g.layout("tree"), vertex_label=g.vs["name"], color=g.vs["color"])
+    plot(g, 'result/reingold.png', bbox=(950, 690), layout=g.layout("fr"), vertex_label=g.vs["name"],
+         color=g.vs["color"])
+    plot(g, 'result/kamada_kawai.png', bbox=(950, 690), layout=g.layout("kk"), vertex_label=g.vs["name"],
+         color=g.vs["color"])

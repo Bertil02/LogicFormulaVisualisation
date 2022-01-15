@@ -12,8 +12,8 @@ def generate(file_name, lines=10, max_variables=10, max_in_line=3):
             # minimalnie dwa polaczenia
             while j < randrange(max_in_line-1)+2:
                 r = randrange(max_variables*2) - max_variables
-                if r != 0 and not used.__contains__(r):
-                    used.append(r)
+                if r != 0 and not used.__contains__(abs(r)):
+                    used.append(abs(r))
                     f.write(str(r) + ' ')
                     j += 1
 

@@ -54,16 +54,13 @@ def draw(file_name):
 
     g.vs["edge_color"] = edges_colors
 
-    plot(g, bbox=(950, 690), layout=g.layout("fr"), vertex_label=g.vs["name"], color=g.vs["color"],
-         edge_color=g.vs["edge_color"])
-    ## plot(g, 'result/random.png', bbox=(950, 690), layout=g.layout("random"), vertex_label=g.vs["name"],
-    ##      color=g.vs["color"])  # random, tree, fr, kk
-    ## plot(g, 'result/tree.png', bbox=(950, 690), layout=g.layout("tree"), vertex_label=g.vs["name"], color=g.vs["color"])
-    ## plot(g, 'result/reingold.png', bbox=(950, 690), layout=g.layout("fr"), vertex_label=g.vs["name"],
-    ##      color=g.vs["color"])
-    ## plot(g, 'result/kamada_kawai.png', bbox=(950, 690), layout=g.layout("kk"), vertex_label=g.vs["name"],
-    ##      color=g.vs["color"])
-
-
-data.generate('sample')
-draw('sample.cnf')
+    plot(g, 'result/random_rough.png', bbox=(950, 690), layout=g.layout("random"), vertex_label=g.vs["name"],
+         color=g.vs["color"])
+    plot(g, 'result/random.png', bbox=(950, 690), layout=g.layout("random"), vertex_label=g.vs["name"],
+         color=g.vs["color"], edge_color=g.vs["edge_color"])
+    plot(g, 'result/tree.png', bbox=(950, 690), layout=g.layout("tree"), vertex_label=g.vs["name"],
+         color=g.vs["color"], edge_color=g.vs["edge_color"])
+    plot(g, 'result/reingold.png', bbox=(950, 690), layout=g.layout("fr"), vertex_label=g.vs["name"],
+         color=g.vs["color"], edge_color=g.vs["edge_color"])
+    plot(g, 'result/kamada_kawai.png', bbox=(950, 690), layout=g.layout("kk"), vertex_label=g.vs["name"],
+         color=g.vs["color"], edge_color=g.vs["edge_color"])

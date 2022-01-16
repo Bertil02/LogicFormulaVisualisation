@@ -22,9 +22,17 @@ def generate(file_name, lines=10, max_variables=10, max_in_line=3):
 
 
 def load(file_name):
+    data = [4]
     with open(file_name, "r") as f:
         # next(f) # pominięcie pierwszej linii
         array = []
         for line in f:  # odczytanie pozostałych linii
-            array += ([int(x) for x in line.split()])
-    return array
+            if line.startswith('c') or line.startswith('C') or line in ['', ' ']:
+                continue
+            if line.startswith('p'):
+                data[0] = line.replace('\n','').split(' ')
+            else:
+                array += ([int(x) for x in line.split()])
+
+    print(data)
+    return array,data

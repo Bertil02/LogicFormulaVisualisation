@@ -10,7 +10,7 @@ def draw(file_name):
     edges = []
     edges_colors = []
     g = Graph()
-    input_string = data.load(file_name)
+    input_string,dataHeader = data.load(file_name)
 
     for variable in input_string:
         if variable != 0:

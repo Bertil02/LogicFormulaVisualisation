@@ -17,7 +17,10 @@ def draw(file_name):
     lines = []
     with open(file_name, "r") as f:
         for line in f:
-            lines.append([int(x) for x in line.split()][:-1])
+            if line.startswith('c') or line.startswith('p') or line.startswith('C') or line in ['', ' ']:
+                continue
+            else:
+                lines.append([int(x) for x in line.split()][:-1])
 
     g.add_vertices(len(lines))
     for current_line in range(len(lines)):
@@ -50,4 +53,4 @@ def draw(file_name):
 # przykład działania
 # import data
 # data.generate('sample', 30)
-# draw('sample.cnf')
+# draw('aim.cnf')git

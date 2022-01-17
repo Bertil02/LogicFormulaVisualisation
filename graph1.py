@@ -112,6 +112,3 @@ def draw_raw(file_name):
 
     plot(g, 'result/random_rough.png', bbox=(950, 690), layout=g.layout("random"), vertex_label=g.vs["name"],
          color=g.vs["color"])
-
-
-draw('aim.cnf')

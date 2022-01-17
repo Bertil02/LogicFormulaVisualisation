@@ -2,23 +2,20 @@ import sys
 
 from PyQt5.QtGui import QPixmap
 
-import data
 import graph1
+import graph2
+import histogramGraph
 
 from PyQt5.QtWidgets import QApplication, QVBoxLayout, QGridLayout, QPushButton, QTextEdit, QFileDialog
 from PyQt5.QtWidgets import QLabel
 from PyQt5.QtWidgets import QWidget
 
-from pysat.formula import CNF
-from pysat.solvers import Solver
-
 global filename
+
 
 def main():
     global resultTextFrame
     global picture
-
-
 
     style = """
     QWidget{
@@ -58,91 +55,79 @@ def main():
 
     app = QApplication(sys.argv)
     app.setStyleSheet(style)
-    window= QWidget()
-    window.setGeometry(0,0,1280,720)
-    window.setWindowTitle("Logical Formula Visualization")
+    window = QWidget()
 
+    window.setGeometry(0, 0, 1280, 720)
+    window.setWindowTitle("Logical Formula Visualization")
     grid = QGridLayout()
 
-    #display buttons
-    selectFileButton = QPushButton("Wybierz Plik")
-    selectFileButton.setFixedSize(300,170)
-    checkSatisfactionButton = QPushButton("Sprawdź spełnialność")
-    checkSatisfactionButton.setFixedSize(300,170)
-    visualiseButton = QPushButton("Wizualizuj formułę")
-    visualiseButton.setFixedSize(300,170)
-    closeButton = QPushButton('Zamknij Aplikację')
-    closeButton.setFixedSize(300,170)
+    graph1VisualizeButton = QPushButton("Wizualizacja nr 1")
+    graph1VisualizeButton.setFixedSize(300, 70)
+    graph1VisualizeButton.clicked.connect(setFile)
+    graph1VisualizeButton.clicked.connect(visualizeGraph1)
 
-    selectFileButton.clicked.connect(setFile)
-    checkSatisfactionButton.clicked.connect(evaluateFormula)
-    visualiseButton.clicked.connect(visualizeCNFFile)
+    graph2VisualizeButton = QPushButton("Wizualizacja nr 2")
+    graph2VisualizeButton.setFixedSize(300, 70)
+    graph2VisualizeButton.clicked.connect(setFile)
+    graph2VisualizeButton.clicked.connect(visualizeGraph2)
+
+    visualizeHistogramButton = QPushButton("Wizualizacja histogram")
+    visualizeHistogramButton.setFixedSize(300, 70)
+    visualizeHistogramButton.clicked.connect(setFile)
+    visualizeHistogramButton.clicked.connect(visualizeHistogram)
+
+    closeButton = QPushButton('Zamknij Aplikację')
+    closeButton.setFixedSize(300, 170)
     closeButton.clicked.connect(closeApp)
 
-
-    #Display result text frame
+    # Display result text frame
     resultTextFrame = QTextEdit("Wybierz plik DIMACS")
     resultTextFrame.setReadOnly(True)
 
-    #Picture widget
+    # Picture widget
     picture = QLabel()
-    picture.setFixedSize(950,695)
+    picture.setFixedSize(950, 695)
     picture.setScaledContents(True)
 
-
     buttonsLayout = QVBoxLayout()
-    buttonsLayout.addWidget(selectFileButton)
-    buttonsLayout.addWidget(checkSatisfactionButton)
-    buttonsLayout.addWidget(visualiseButton)
+    buttonsLayout.addWidget(graph1VisualizeButton)
+    buttonsLayout.addWidget(graph2VisualizeButton)
+    buttonsLayout.addWidget(visualizeHistogramButton)
     buttonsLayout.addWidget(closeButton)
 
-
-    grid.addLayout(buttonsLayout,0,0)
-    grid.addWidget(picture,0,1)
-
-
+    grid.addLayout(buttonsLayout, 0, 0)
+    grid.addWidget(picture, 0, 1)
 
     window.setLayout(grid)
     window.show()
     sys.exit(app.exec_())
 
+
 def visualizeCNFFile():
     global filename
     global picture
     graph1.draw(filename[0])
-    picture.setPixmap(QPixmap("result/tree.png"))
+    picture.setPixmap(QPixmap("result/random_rough.png"))
 
 
-def evaluateFormula():
+def visualizeGraph1():
     global filename
-    global resultTextFrame
-    with open(filename[0],'r') as fp:
-        cnf = CNF(from_fp=fp)
-        print(cnf)
-        s = Solver(name="minisat22")
-        s.append_formula(cnf.clauses, no_return=False)
-        s.solve()
-
-        #Sprawdza czy formuła jest spełnialna
-        print(s.get_status())
-
-        #Zwraca wynik algorytmu MiniSat
-        print(s.get_model())
-
-        if s.get_status():
-            resultTextFrame.setText("Formuła jest spełnialna!\n\n")
-        else:
-            resultTextFrame.setText("Formuła nie jest spełnialna!\n\n")
-
-        resultTextFrame.append("Wynik algorytmu minsat:")
-        result =s.get_model()
-
-        resultTextFrame.append(str(result))
+    global picture
+    graph1.draw(filename[0])
+    picture.setPixmap(QPixmap("result/random_rough.png"))
 
 
-    return 0
+def visualizeGraph2():
+    global filename
+    global picture
+    graph2.draw(filename[0])
+    picture.setPixmap(QPixmap("result/graph2.png"))
 
 
+def visualizeHistogram():
+    global filename
+    global picture
+    histogramGraph.histogramGraph(filename[0])
 
 
 def setFile():
@@ -155,8 +140,10 @@ def setFile():
     resultTextFrame.clear()
     return fname
 
+
 def closeApp():
     sys.exit()
+
 
 if __name__ == '__main__':
     main()

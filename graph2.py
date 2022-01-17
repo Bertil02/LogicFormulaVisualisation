@@ -2,9 +2,9 @@ from igraph import *
 
 
 def draw(file_name):
-    MAX_WEIGHT = 2
 
     # grubość połączenia (więcej wyrazów wspólnych -> grubsza linia; brak wyrazów wspólnych -> brak linii)
+    MAX_WEIGHT = 5
     weight = 0
     weights = []
 
@@ -24,20 +24,23 @@ def draw(file_name):
 
     g.add_vertices(len(lines))
     for current_line in range(len(lines)):
-        names.append('C_' + str(current_line+1))
+        names.append('C_' + str(current_line + 1))
         for previous_line in range(current_line):
             for var in lines[current_line]:
                 if var in lines[previous_line]:
-                    weight += MAX_WEIGHT/len(lines[current_line])
+                    # weight += MAX_WEIGHT / len(lines[current_line])
+                    weight += 1
 
-            if len(lines[current_line]) != len(lines[previous_line]) or weight <= MAX_WEIGHT/2:
+            # obliczenie grubości linii na podstawie ilości wyrażeń w aktualnym zdaniu
+            weight = weight / len(lines[current_line]) * MAX_WEIGHT
+            if weight <= MAX_WEIGHT / 2:
                 edge_colors.append('black')
-            elif weight == MAX_WEIGHT:
+            elif weight >= MAX_WEIGHT:
                 edge_colors.append('green')
-            elif weight > MAX_WEIGHT/2:
+            elif weight > MAX_WEIGHT / 2:
                 edge_colors.append('yellow')
 
-            print('current_line:', current_line+1, 'previous line:', previous_line+1, 'weight:', weight,
+            print('current_line:', current_line + 1, 'previous line:', previous_line + 1, 'weight:', weight,
                   'edge color:', edge_colors[-1])
             g.add_edge(current_line, previous_line)
 
@@ -53,4 +56,4 @@ def draw(file_name):
 # przykład działania
 # import data
 # data.generate('sample', 30)
-# draw('aim.cnf')git
+draw('aim.cnf')

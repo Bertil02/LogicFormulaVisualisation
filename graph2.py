@@ -49,11 +49,5 @@ def draw(file_name):
         print('-' * 60)
 
     g.vs["color"] = ['green']
-    plot(g, bbox=(950, 690), layout=g.layout("fr"), vertex_label=names, edge_width=weights,
+    plot(g, "result/graph2.png", bbox=(950, 690), layout=g.layout("fr"), vertex_label=names, edge_width=weights,
          edge_color=edge_colors, color=g.vs["color"])
-
-
-# przykład działania
-# import data
-# data.generate('sample', 30)
-draw('aim.cnf')

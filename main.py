@@ -4,6 +4,7 @@ from PyQt5.QtGui import QPixmap
 
 import graph1
 import graph2
+import histogramGraph
 
 from PyQt5.QtWidgets import QApplication, QVBoxLayout, QGridLayout, QPushButton, QTextEdit, QFileDialog
 from PyQt5.QtWidgets import QLabel
@@ -68,12 +69,12 @@ def main():
     graph2VisualizeButton = QPushButton("Wizualizacja nr 2")
     graph2VisualizeButton.setFixedSize(300, 70)
     graph2VisualizeButton.clicked.connect(setFile)
-    # graph2VisualizeButton.clicked.connect(visualizeGraph2)
+    graph2VisualizeButton.clicked.connect(visualizeGraph2)
 
     visualizeHistogramButton = QPushButton("Wizualizacja histogram")
     visualizeHistogramButton.setFixedSize(300, 70)
     visualizeHistogramButton.clicked.connect(setFile)
-    # visualiseButton.clicked.connect(visualizeHistogram)
+    visualizeHistogramButton.clicked.connect(visualizeHistogram)
 
     closeButton = QPushButton('Zamknij Aplikację')
     closeButton.setFixedSize(300, 170)
@@ -120,7 +121,14 @@ def visualizeGraph2():
     global filename
     global picture
     graph2.draw(filename[0])
-    picture.setPixmap(QPixmap("result/random_rough.png"))
+    picture.setPixmap(QPixmap("result/graph2.png"))
+
+
+def visualizeHistogram():
+    global filename
+    global picture
+    histogramGraph.histogramGraph(filename[0])
+    # picture.setPixmap(QPixmap("result/histogram.png"))
 
 
 def setFile():

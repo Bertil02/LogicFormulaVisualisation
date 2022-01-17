@@ -128,7 +128,6 @@ def visualizeHistogram():
     global filename
     global picture
     histogramGraph.histogramGraph(filename[0])
-    # picture.setPixmap(QPixmap("result/histogram.png"))
 
 
 def setFile():
